@@ -1,2 +1,2 @@
 # repo
-this is my first repo HOW IS IT
+This is my first repo, How is it 
