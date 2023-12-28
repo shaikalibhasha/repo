@@ -21,6 +21,7 @@ pipeline {
             steps {
                 // Run tests (replace with your test commands)
                 sh 'echo "Running tests..."'
+		sh 'chmod +x arshan.sh' // Grant execute permissions
                 sh './arshan.sh' // Replace with your actual test script
             }
         }
