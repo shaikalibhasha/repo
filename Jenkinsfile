@@ -2,27 +2,41 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                // Checkout the source code from your Git repository
-                checkout scm
-            }
-        }
-
-        stage('Build') {
-            steps {
-                // Build your project (replace with your build commands)
-                sh 'echo "Building..."'
-                sh 'touch sample.txt' // Replace with your actual build script
+        stage('Checkout and Build') {
+            parallel {
+                stage('Checkout') {
+                    steps {
+                        // Checkout the source code from your Git repository
+                        checkout scm
+                    }
+                }
+                stage('Build') {
+                    steps {
+                        // Build your project (replace with your build commands)
+                        sh 'echo "Building..."'
+                        sh 'touch sample.txt' // Replace with your actual build script
+                    }
+                }
             }
         }
 
         stage('Test') {
-            steps {
-                // Run tests (replace with your test commands)
-                sh 'echo "Running tests..."'
-		sh 'chmod +x arshan.sh' // Grant execute permissions
-                sh './arshan.sh' // Replace with your actual test script
+            parallel {
+                stage('Test 1') {
+                    steps {
+                        // Run tests (replace with your test commands)
+                        sh 'echo "Running tests 1..."'
+                        sh 'chmod +x arshan.sh' // Grant execute permissions
+                        sh './arshan.sh' // Replace with your actual test script
+                    }
+                }
+                stage('Test 2') {
+                    steps {
+                        // Run additional tests (replace with your test commands)
+                        sh 'echo "Running tests 2..."'
+                        // Add more test steps as needed
+                    }
+                }
             }
         }
     }
@@ -38,5 +52,7 @@ pipeline {
         }
     }
 }
+
+
 
 
