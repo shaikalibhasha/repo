@@ -39,19 +39,32 @@ pipeline {
                 }
             }
         }
+
+        stage('Build and Push Docker Image') {
+            steps {
+                script {
+                    // Build Docker image
+                    sh 'docker build -t your-docker-image-name .'
+
+                    // Push Docker image to a registry (replace with your registry details)
+                    sh 'docker push your-docker-image-name'
+                }
+            }
+        }
     }
 
     post {
         success {
             // Actions to be performed when the pipeline succeeds
-            echo 'Build and Test succeeded!'
+            echo 'Build, Test, and Docker image build/push succeeded!'
         }
         failure {
             // Actions to be performed when the pipeline fails
-            echo 'Build or Test failed. Please check the logs for details.'
+            echo 'Build, Test, or Docker image build/push failed. Please check the logs for details.'
         }
     }
 }
+
 
 
 
